@@ -149,6 +149,15 @@ button{font:inherit;color:inherit}
 #sp{position:fixed;inset:0;z-index:2147483000;background:rgba(10,16,40,.62);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}#sp[hidden]{display:none}
 #sp .spb{position:relative;background:#fff;color:#13224d;border-radius:20px;width:100%;max-width:380px;max-height:100%;overflow:auto;box-shadow:0 24px 60px -12px rgba(0,0,0,.5)}#sp .spi{aspect-ratio:1;width:100%;background:#e4e8f3}#sp .spi svg{display:block;width:100%;height:100%}
 #sp .spx{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#13224d;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}#sp .spx:focus-visible{outline:3px solid #13224d;outline-offset:2px}
+/* Mode Noël : cartes sombres et textes lisibles sur les rayons sol */
+html.noel .slq,html.noel .sls{background:var(--card);color:var(--ink);border:1px solid var(--ln)}
+html.noel .slq::placeholder{color:var(--mut);opacity:1}
+html.noel .sll li{background:var(--card);box-shadow:0 1px 0 rgba(255,246,228,.06),0 8px 20px -12px rgba(0,0,0,.65)}
+html.noel .sll .gp details[open]>summary{border-bottom-color:rgba(255,246,228,.14)}
+html.noel .sll .ext{background:var(--soft);color:var(--ink);border-color:rgba(255,246,228,.3)}
+html.noel .sll .th{background:var(--soft);box-shadow:inset 0 0 0 1px rgba(255,246,228,.25)}
+html.noel #sp .spb{--ink:#13224d;--mut:#5a678c;--soft:#edf1fb;--ln:#d8e0f1;--card:#fff;--bg2:#e6ecf8;--sel:#e4ecff}
+html.noel .dash{color:var(--mut)}
 #sp .spc{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}#sp h3{margin:0;font:800 26px/1.1 var(--disp,system-ui);letter-spacing:-.01em}#sp .spd{margin:0;font-size:14px;color:#4b5a84}#sp .spm{margin:2px 0 0;font:700 14px/1.3 system-ui,sans-serif}#sp .spk{margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px}#sp .kc{display:inline-flex;align-items:center;gap:7px;font:600 13px/1 system-ui,sans-serif;background:#f2f5fd;border-radius:99px;padding:7px 11px 7px 8px}#sp .kc i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(19,34,77,.25);flex:none}#sp .kc em{font-weight:500;font-style:normal;color:#6b7799}#sp .spn{margin:8px 0 0;font-size:12px;line-height:1.4;color:#6b7799}
 .sll .vs{display:grid;padding:0 16px 6px}.sll .vs .vr:first-child{border-top:0}.sll .vr{display:flex;gap:11px;padding:11px 0;border-top:1px solid rgba(19,34,77,.08)}
 .sll .sw{flex:none;width:16px;height:16px;border-radius:50%;margin-top:2px;box-shadow:inset 0 0 0 1px rgba(19,34,77,.22)}
