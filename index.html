@@ -200,7 +200,7 @@ button{font:inherit;color:inherit}
  background-image:repeating-linear-gradient(90deg,#0f1b3f 0 1px,transparent 1px 8px),repeating-linear-gradient(90deg,#0f1b3f 0 2px,transparent 2px 40px);background-size:100% 6px,100% 11px;background-repeat:repeat-x;background-position:left bottom}
 
 .flt{max-width:1240px;margin:0 auto;padding-block:16px 6px;display:grid;gap:6px}
-.frow{display:flex;gap:10px;align-items:center}
+.frow{display:flex;gap:10px;align-items:center;min-width:0;max-width:100%}
 .frow>b{font-size:12px;color:var(--mut);font-weight:600;flex:none;width:58px}
 .sc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0;position:relative;flex:1;min-width:0}
 .sc::-webkit-scrollbar{display:none}
@@ -464,7 +464,7 @@ html.noel body{background:radial-gradient(900px 420px at 50% -8%,#1f6048 0,trans
 .px.promo{display:flex;flex-wrap:wrap;gap:2px 6px;justify-content:center;align-items:baseline;color:#d6264a}
 .px.promo em{font-style:normal;font-weight:800}.px.promo s{color:var(--mut);font-weight:500;font-size:.88em}
 .px.promo .tg{background:#d6264a;color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:800}
-.promobar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;margin:18px 0 0;padding:12px 16px;border:1px solid #d6264a;border-radius:18px;background:linear-gradient(100deg,rgba(214,38,74,.12),transparent);color:var(--ink);font:500 13px var(--body);text-align:left;cursor:pointer}
+.promobar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-sizing:border-box;width:calc(100% - 32px);max-width:1208px;margin:18px auto 0;padding:12px 16px;border:1px solid #d6264a;border-radius:18px;background:linear-gradient(100deg,rgba(214,38,74,.12),transparent);color:var(--ink);font:500 13px var(--body);text-align:left;cursor:pointer}
 .promobar b{color:#d6264a;font:800 15px var(--disp)}.promobar span{flex:1 1 200px;color:var(--mut)}
 .promobar i{font-style:normal;font-weight:700;color:#fff;background:#d6264a;border-radius:999px;padding:5px 14px}
 .promo-h{color:#d6264a!important}
