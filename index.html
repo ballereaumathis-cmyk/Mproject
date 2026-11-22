@@ -406,6 +406,9 @@ tr.sel th.r,tr.sel td{background:var(--sel)}
 .cart.sr .cart-sh{height:86dvh}
 .sr-body{overflow:auto;padding:0 16px 20px;flex:1}
 .sr-h{font:700 13px var(--body);color:var(--mut);margin:14px 4px 8px}
+.ci.xq{grid-template-columns:72px minmax(0,1fr)}.cth.xqt{padding:0;overflow:hidden;background:var(--soft)}.cth.xqt svg{width:100%;height:100%;display:block}.ci.xq .px{margin-top:3px;justify-content:flex-start;font:800 15px/1.1 var(--disp)}.ci.xq .px.nop{font-size:12px!important}.ci.xq .px:not(.promo):not(.nop){color:var(--ink)}.cth.xqt{border-radius:16px}.cth.xqt svg{border-radius:0}
+.sr-h.sub{margin-top:20px;color:var(--ink);font-size:14px}
+.srm{display:block;width:100%;margin:2px 0 8px;padding:12px 14px;border:1px solid var(--ln);border-radius:14px;background:var(--card);color:var(--ink);font:700 14px var(--body);cursor:pointer;text-align:center}.srm:hover,.srm:focus-visible{border-color:var(--blue);color:var(--blue)}
 .sri{cursor:pointer;margin-bottom:8px}.sri .ce{font:600 12px ui-monospace,monospace;color:var(--blue)}
 .sra{display:flex;flex-direction:column;align-items:center;gap:8px}
 .sug{margin:14px 0 4px;padding-top:8px;border-top:1px dashed var(--ln)}
@@ -604,7 +607,7 @@ html.noel body{background:radial-gradient(900px 420px at 50% -8%,#1f6048 0,trans
 <div class="cart-ft"><div id="cart-tot"></div><textarea id="cart-ta" hidden readonly></textarea><div class="cart-btns"><button class="pri" id="cart-quote">Préparer le devis</button><button class="sec" id="cart-copy">Copier la liste</button><button class="sec" id="cart-clear">Vider</button></div></div>
 </aside></div>
 <button class="fab sfab" id="sfab" aria-label="Rechercher un produit"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Rechercher</span></button>
-<div class="cart sr" id="sr" aria-hidden="true"><div class="cart-bg" id="sr-bg"></div><aside class="cart-sh" role="dialog" aria-label="Recherche"><div class="sr-top"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><input id="sr-q" type="search" placeholder="Code, gamme, taille… ex. Douro noir" autocomplete="off" aria-label="Rechercher"><button id="sr-x" aria-label="Fermer la recherche"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="sr-body" id="sr-body"></div></aside></div>
+<div class="cart sr" id="sr" aria-hidden="true"><div class="cart-bg" id="sr-bg"></div><aside class="cart-sh" role="dialog" aria-label="Recherche sur tout le catalogue"><div class="sr-top"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><input id="sr-q" type="search" placeholder="Tout le catalogue : code, gamme, taille…" autocomplete="off" aria-label="Rechercher"><button id="sr-x" aria-label="Fermer la recherche"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="sr-body" id="sr-body"></div></aside></div>
 <div class="cart qt" id="qt" aria-hidden="true"><div class="cart-bg" id="qt-bg"></div><aside class="cart-sh" role="dialog" aria-label="Devis"><div class="cart-hd"><h2>Devis</h2><small>à envoyer au client</small><button id="qt-x" aria-label="Fermer le devis"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
 <div class="qt-body"><div class="qf"><label>Conseiller<input id="qt-adv" placeholder="Votre nom" autocomplete="name"></label><label>Contact conseiller<input id="qt-tel" placeholder="Téléphone ou e-mail"></label><label>Magasin<input id="qt-mag" placeholder="Castorama …"></label><label>Client<input id="qt-cli" placeholder="Nom du client"></label><label>Contact client<input id="qt-ctc" placeholder="Téléphone ou e-mail"></label><label class="w2">Note<textarea id="qt-note" rows="2" placeholder="Délai, pose, remise accordée…"></textarea></label></div><div class="qdoc" id="qt-doc"></div></div>
 <div class="cart-ft"><textarea id="qt-ta" hidden readonly></textarea><div class="cart-btns"><button class="pri" id="qt-copy">Copier le devis</button><button class="sec" id="qt-back">Retour</button></div></div></aside></div>
@@ -987,17 +990,22 @@ function renderSr(){var q=norm(Q.value.trim()),h="";
  if(!q){var pr=ROWS.filter(function(x){return PXO[x.ean]});if(pr.length){h+='<div class="sr-h promo-h">Promotions du moment</div>';pr.forEach(function(x){h+=card(x.p,x.si,x.oi,x.ri,x.ci,true)})}var f=FAV.filter(function(k){return ROWMAP[k]}),r=REC.filter(function(k){return ROWMAP[k]});
   if(f.length)h+='<div class="sr-h">Favoris</div>'+listKeys(f);
   if(r.length)h+='<div class="sr-h">Vus récemment</div>'+listKeys(r);
-  if(!f.length&&!r.length&&!pr.length)h='<div class="cart-empty" style="display:block"><b>Cherchez un produit</b><p>Tapez un code (3663…), une gamme, une taille ou un coloris : « Douro noir », « 90x80 », « coulissante ».</p><p>Les favoris (♥) et les fiches ouvertes récemment apparaîtront ici.</p></div>'}
+  if(!f.length&&!r.length&&!pr.length)h='<div class="cart-empty" style="display:block"><b>Cherchez un produit</b><p>Tapez un code (3663…), une gamme, une taille ou un coloris, sur tout le catalogue (douche, sol, meuble, toilette) : « Douro noir », « 90x80 », « Imandra 60x45 », « Geberit », « chêne 122x15 ».</p><p>Les favoris (♥) et les fiches ouvertes récemment apparaîtront ici.</p></div>'}
  else{var toks=q.split(" ").filter(Boolean),n=0,tot=0;
   ROWS.forEach(function(x){var ok=toks.every(function(t){if(x.h.indexOf(t)>-1)return true;var m=t.match(/^(\d+)x(\d+)$/);return m&&x.h.indexOf(m[2]+"x"+m[1])>-1});if(!ok)return;tot++;if(n<40){n++;h+=card(x.p,x.si,x.oi,x.ri,x.ci,true)}});
-  h=(tot?'<div class="sr-h">'+tot+" résultat"+(tot>1?"s":"")+(tot>n?" · les "+n+" premiers":"")+'</div>'+h:'<p class="nores">Aucun résultat pour « '+esc(Q.value.trim())+' ». Essayez un code, une gamme ou une taille.</p>')}
+  var xs=(window.XSRC||[]).map(function(p){var rs=[];try{rs=p.find(Q.value.trim())}catch(e){}return{p:p,rs:rs}}).filter(function(x){return x.rs.length}),xt=xs.reduce(function(a,x){return a+x.rs.length},0),all=tot+xt;
+  if(!all)h='<p class="nores">Aucun résultat pour « '+esc(Q.value.trim())+' ». Essayez un code, une gamme, une taille (60x45) ou un coloris.</p>';
+  else{if(tot)h=(xt?'<div class="sr-h sub">Douche : parois et receveurs · '+tot+(tot>n?" (les "+n+" premiers)":"")+'</div>':(tot>n?'<div class="sr-h sub">Les '+n+' premiers sur '+tot+'</div>':""))+h;
+   xs.forEach(function(x){h+='<div class="sr-h sub">'+esc(x.p.title)+' · '+x.rs.length+'</div>'+x.rs.slice(0,8).map(function(r){return x.p.card(r)}).join("")+(x.rs.length>8?'<button type="button" class="srm" data-x="'+x.p.key+'">Voir les '+x.rs.length+' résultats dans le rayon</button>':"")});
+   h='<div class="sr-h">'+all+" résultat"+(all>1?"s":"")+'</div>'+h}}
  B.innerHTML=h;syncAdds()}
 Q.addEventListener("input",renderSr);
 $("sfab").addEventListener("click",function(){openSr(true)});
 $("sr-x").addEventListener("click",function(){openSr(false)});
 $("sr-bg").addEventListener("click",function(){openSr(false)});
-B.addEventListener("click",function(ev){if(ev.target.closest(".add,.fav"))return;var c=ev.target.closest(".sri");if(c)go(c.dataset.p,+c.dataset.si,+c.dataset.oi,+c.dataset.ri)});
-B.addEventListener("keydown",function(ev){if(ev.key==="Enter"){var c=ev.target.closest(".sri");if(c&&ev.target===c)go(c.dataset.p,+c.dataset.si,+c.dataset.oi,+c.dataset.ri)}});
+function xopen(key,id){var p=(window.XSRC||[]).filter(function(x){return x.key===key})[0];if(!p)return;var raw=Q.value.trim();openSr(false);if(id==null)p.openAll(raw);else p.open(p.get(id))}
+B.addEventListener("click",function(ev){if(ev.target.closest(".add,.fav"))return;var m=ev.target.closest(".srm");if(m){xopen(m.dataset.x,null);return}var c=ev.target.closest(".sri");if(!c)return;if(c.dataset.x){xopen(c.dataset.x,c.dataset.i);return}go(c.dataset.p,+c.dataset.si,+c.dataset.oi,+c.dataset.ri)});
+B.addEventListener("keydown",function(ev){if(ev.key==="Enter"){var c=ev.target.closest(".sri");if(c&&ev.target===c){if(c.dataset.x)xopen(c.dataset.x,c.dataset.i);else go(c.dataset.p,+c.dataset.si,+c.dataset.oi,+c.dataset.ri)}}});
 document.addEventListener("keydown",function(ev){var tg=(ev.target.tagName||"");
  if(ev.key==="Escape"){if(QT.classList.contains("open")){ev.stopImmediatePropagation();openQt(false)}else if(SR.classList.contains("open"))openSr(false)}
  else if(ev.key==="/"&&!/INPUT|TEXTAREA/.test(tg)){ev.preventDefault();openSr(true)}},true);
@@ -1309,7 +1317,7 @@ function watch(ul){var els=ul.querySelectorAll(".th");if(!("IntersectionObserver
 function setup(k){var v=document.getElementById("v-sol-"+k);if(!v)return;
  var rows=D[k];rows.forEach(function(r,i){r.q=k+i;RG[r.q]=r});var q=v.querySelector(".slq"),so=v.querySelector(".sls"),ch=v.querySelector(".slchips"),ul=v.querySelector(".sll"),cur=-1;
  var cs=CHIPS[k]||[];ch.innerHTML=cs.map(function(c,i){return '<button type="button" aria-pressed="false" data-i="'+i+'">'+c[0]+'</button>'}).join("")+'<button type="button" aria-pressed="false" data-i="p">Promos</button>';
- function show(){var t=q.value.trim().toLowerCase(),out=rows.filter(function(r){var s=(r[2]+" "+r[3]+" "+r[4]+" "+r[1]).toLowerCase();if(t&&s.indexOf(t)<0)return false;
+ function show(){var t=q.value.trim().toLowerCase(),tk=stoks(q.value),out=rows.filter(function(r){if(tk.length&&!smatch(r,tk))return false;
   if(cur==="p")return pn(r[6])>pn(r[5]);
   if(cur>=0){var c=cs[cur][1];return typeof c==="string"?r[0]===c:c.test(r[2]+" "+r[3])}return true});
   if(so.value)out=out.slice().sort(function(a,b){var x=pn(a[5]),y=pn(b[5]);if(isNaN(x))x=1e9;if(isNaN(y))y=1e9;return so.value==="p"?x-y:(isNaN(pn(b[5]))?-1:y-x)});
@@ -1323,6 +1331,18 @@ function setup(k){var v=document.getElementById("v-sol-"+k);if(!v)return;
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(e).then(done,fb);else fb()});
  q.addEventListener("input",show);so.addEventListener("change",show);show()}
 ["souple","parquet","carrelage","faience"].forEach(setup);
+var SOLT={souple:"Sol souple (vinyle)",parquet:"Parquet et stratifié",carrelage:"Carrelage",faience:"Faïence"};
+function snz(s){return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/(\d)\s*[x×]\s*(\d)/g,"$1x$2")}
+function stoks(s){return snz(s).split(" ").filter(Boolean)}
+function smatch(r,tk){var s=snz(r[2]+" "+r[3]+" "+r[4]+" "+r[1]+" "+(SOLT[r.k]||""));return tk.every(function(t){if(s.indexOf(t)>-1)return true;var m=t.match(/^(\d+(?:[.,]\d+)?)x(\d+(?:[.,]\d+)?)$/);return m&&s.indexOf(m[2]+"x"+m[1])>-1})}
+Object.keys(SOLT).forEach(function(k){var rows=D[k];rows.forEach(function(r){r.k=k});
+ function go(term){var q0=document.querySelector("#v-sol-"+k+" .slq"),so0=document.querySelector("#v-sol-"+k+" .sls"),ch0=document.querySelector("#v-sol-"+k+" .slchips");if(ch0)ch0.querySelectorAll("button[aria-pressed=true]").forEach(function(b){b.click()});location.hash="#sol-"+k;setTimeout(function(){if(so0&&so0.value){so0.value="";so0.dispatchEvent(new Event("change"))}q0.value=term;q0.dispatchEvent(new Event("input"));window.scrollTo(0,0)},200)}
+ (window.XSRC=window.XSRC||[]).push({key:"sol-"+k,title:SOLT[k],
+  find:function(raw){var tk=stoks(raw);return tk.length?rows.filter(function(r){return smatch(r,tk)}):[]},
+  card:function(r){var pr=pn(r[5]),o=pn(r[6]),n=gname(r),bm=BR.exec(r[3]||""),br=bm?bm[1]:(n?"":(r[3]||"")),dm=dims(r[4]),sub=[n?r[2]:"",dm,br].filter(Boolean).join(" · "),
+    px=isNaN(pr)?'<span class="px nop">prix à vérifier</span>':(o>pr?'<span class="px promo"><b class="tg">−'+Math.round((1-pr/o)*100)+' %</b><s>'+fm(o)+' €/m²</s><em>'+fm(pr)+' €/m²</em></span>':'<span class="px">'+fm(pr)+' €/m²</span>');
+   return '<div class="ci xq sri" data-x="sol-'+k+'" data-i="'+r.q+'" tabindex="0" role="button"><div class="cth xqt">'+pat(r)+'</div><div class="cin"><b>'+esc(n||r[2])+'</b><span>'+esc(sub)+'</span>'+(r[1]?'<span class="ce">'+r[1]+'</span>':'')+px+'</div></div>'},
+  get:function(i){return RG[i]},open:function(r){go(r[1]||r[2])},openAll:function(raw){go(raw)}})});
 })();
 /* ===== Rayons meuble & toilette ===== */
 (function(){
@@ -1379,6 +1399,7 @@ function gcard(g,cf,open,ty){var rs=g.rs,nm=g.n,br="",m=/^(GoodHome|Cooke & Lewi
  rs.forEach(function(r){var c=colOf(r[2]);if(!seen[c]&&k<7){seen[c]=1;k++;dots+='<i class="sw s" style="background:'+c+'"></i>'}});
  var body="",last="";rs.forEach(function(r){if(!ty&&r[0]!==last){last=r[0];var c=rs.filter(function(x){return x[0]===r[0]}).length;body+='<div class="vh">'+E(cf.TL[r[0]])+' <em>'+c+'</em></div>'}body+=vrow(r,cf,ty)});
  return'<li class="gp"><details'+(open?' open':'')+'><summary><div class="gh"><div class="n nm">'+E(nm)+'</div><div class="r">'+rs.length+' réf.'+(br?' · '+E(br):'')+'</div><div class="dots">'+dots+'</div></div><div class="gr">'+(promo?'<span class="pr">promo</span>':'')+(isNaN(mn)?'':'<div class="gf"><small>dès</small><b>'+fp(mn)+'</b><small>€</small></div>')+'<svg class="chv" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></div></summary><div class="vs">'+body+'</div></details></li>'}
+function hit(h,t){return t.split(" ").every(function(x){return h.indexOf(x)>=0})}
 function num(x){return parseFloat(String(x).replace(",","."))}
 function spec(s){s=String(s||"").toLowerCase().replace(/cm/g,"").replace(/\s+/g,"").replace(/,/g,".");if(!s)return null;var m;
  if(m=/^(?:<=|≤|<|max)(\d+(?:\.\d+)?)$/.exec(s)){var mx=+m[1];return function(v){return v<=mx+.01}}
@@ -1404,7 +1425,7 @@ function setup(k){var cf=CF[k],v=document.getElementById(cf.v);if(!v)return;cf.s
  fp_.innerHTML=RW.map(function(w,wi){return'<div class="sfr"><span class="sfk">'+w.k+'</span><div class="sfc" data-w="'+wi+'">'+w.items.map(function(it,i){return'<button type="button" aria-pressed="false" data-i="'+i+'">'+E(it[0])+'</button>'}).join("")+'</div></div>'}).join("")+(cf.dims?'<div class="sfr sfd"><span class="sfk">Cotes</span><div class="sfi"><input class="slq" data-d="L" inputmode="decimal" autocomplete="off" placeholder="Larg." aria-label="Largeur en cm"><input class="slq" data-d="H" inputmode="decimal" autocomplete="off" placeholder="Haut." aria-label="Hauteur en cm"><input class="slq" data-d="P" inputmode="decimal" autocomplete="off" placeholder="Prof." aria-label="Profondeur en cm"><span class="cmu">cm</span></div></div>':"")+'<p class="sfh">'+(cf.dims?'Les filtres se cumulent. Cotes : 60 = exact · 50-70 = entre · ≤60 = max · ≥80 = min. Dans la recherche : 60x45.':'Les filtres se cumulent : un choix par ligne, plusieurs dans Options.')+'</p>';
  function nact(){return RW.reduce(function(n,w){return n+(w.multi?w.sel.length:(w.sel>=0?1:0))},0)+(DQ.L?1:0)+(DQ.H?1:0)+(DQ.P?1:0)}
  function ok(r){return["L","H","P"].every(function(d){return!DQ[d]||DQ[d](r[d])})&&RW.every(function(w){if(w.multi)return w.sel.every(function(i){return w.items[i][1](r)});return w.sel<0||w.items[w.sel][1](r)})}
- function show(){var pq=cf.dims?parseQ(q.value):{t:q.value,c:[]},t=nz(pq.t.trim()),ty=!!so.value,out=rows.filter(function(r){return(!t||r.h.indexOf(t)>=0)&&qok(r,pq.c)&&ok(r)}),na=nact(),dd=!!(DQ.L||DQ.H||DQ.P||pq.c.length);
+ function show(){var pq=cf.dims?parseQ(q.value):{t:q.value,c:[]},t=nz(pq.t.trim()),ty=!!so.value,out=rows.filter(function(r){return(!t||hit(r.h,t))&&qok(r,pq.c)&&ok(r)}),na=nact(),dd=!!(DQ.L||DQ.H||DQ.P||pq.c.length);
   if(so.value)out=out.slice().sort(function(a,b){var x=pn(a[5]),y=pn(b[5]),ms=so.value==="p"?1e9:-1;if(isNaN(x))x=ms;if(isNaN(y))y=ms;return so.value==="p"?x-y:y-x});
   var g={},ord=[];out.forEach(function(r){var key=r[3];if(!g[key]){g[key]={n:key,rs:[]};ord.push(g[key])}g[key].rs.push(r)});
   v.querySelector(".slc").innerHTML='<b>'+out.length+'</b> '+(out.length===rows.length?'références relevées sur castorama.fr':'sur '+rows.length+' références');
@@ -1413,11 +1434,20 @@ function setup(k){var cf=CF[k],v=document.getElementById(cf.v);if(!v)return;cf.s
   ul.innerHTML=out.length?ord.map(function(x){return x.rs.length>1?gcard(x,cf,!!t||ord.length===1,ty):card(x.rs[0],cf)}).join(""):'<li class="none">Aucune référence ne correspond.'+(na?' Essayez de retirer un filtre.':'')+(dd?' Seules les références dont la cote est relevée sont comparées.':'')+'</li>'}
  fp_.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var w=RW[+b.parentNode.getAttribute("data-w")],i=+b.getAttribute("data-i");if(w.multi){var p=w.sel.indexOf(i);if(p>=0)w.sel.splice(p,1);else w.sel.push(i)}else w.sel=(w.sel===i)?-1:i;show()});
  fp_.addEventListener("input",function(e){var d=e.target.getAttribute&&e.target.getAttribute("data-d");if(!d)return;DQ[d]=spec(e.target.value);e.target.setAttribute("aria-invalid",String(!!e.target.value.trim()&&!DQ[d]));show()});
- st.addEventListener("click",function(e){if(e.target.closest(".fto")){openP=!openP;try{localStorage.setItem("flt_"+k,openP?"1":"0")}catch(x){}show();return}if(e.target.closest(".clr")){RW.forEach(function(w){w.sel=w.multi?[]:-1});DQ={L:null,H:null,P:null};fp_.querySelectorAll("input").forEach(function(i){i.value="";i.removeAttribute("aria-invalid")});show()}});
+ function reset(){RW.forEach(function(w){w.sel=w.multi?[]:-1});DQ={L:null,H:null,P:null};fp_.querySelectorAll("input").forEach(function(i){i.value="";i.removeAttribute("aria-invalid")})}
+ st.addEventListener("click",function(e){if(e.target.closest(".fto")){openP=!openP;try{localStorage.setItem("flt_"+k,openP?"1":"0")}catch(x){}show();return}if(e.target.closest(".clr")){reset();show()}});
  ul.addEventListener("click",function(ev){var b=ev.target.closest(".cp");if(!b)return;var e=b.getAttribute("data-e");
   function done(){var l=b.querySelector("b"),ot=l.textContent;b.classList.add("ok");l.textContent="Copié";if(typeof toast==="function")toast("EAN "+e+" copié");setTimeout(function(){b.classList.remove("ok");l.textContent=ot},1400)}
   function fb(){var a=document.createElement("textarea");a.value=e;a.setAttribute("readonly","");a.style.cssText="position:fixed;opacity:0;top:0";document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand("copy")}catch(x){}a.remove();if(ok)done();else if(typeof toast==="function")toast("Copie impossible : EAN "+e)}
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(e).then(done,fb);else fb()});
+
+ rows.forEach(function(r,i){r.i=i});
+ function gotoTerm(term){reset();so.value="";location.hash="#"+k;setTimeout(function(){q.value=term;show();window.scrollTo(0,0);try{q.focus({preventScroll:true})}catch(x){}},200)}
+ (window.XSRC=window.XSRC||[]).push({key:k,title:k==="meuble"?"Meuble de salle de bain":"Toilette",
+  find:function(raw){var pq=cf.dims?parseQ(raw):{t:raw,c:[]},t=nz(pq.t.trim());return rows.filter(function(r){return(!t||hit(r.h,t))&&qok(r,pq.c)})},
+  card:function(r){var p=pn(r[5]),o=pn(r[6]),px=isNaN(p)?'<span class="px nop">prix à vérifier</span>':(o>p?'<span class="px promo"><b class="tg">−'+Math.round((1-p/o)*100)+' %</b><s>'+fp(o)+' €</s><em>'+fp(p)+' €</em></span>':'<span class="px">'+fp(p)+' €</span>');
+   return'<div class="ci xq sri" data-x="'+k+'" data-i="'+r.i+'" tabindex="0" role="button"><div class="cth xqt">'+tn(r,k)+'</div><div class="cin"><b>'+E(r[9]||r[2])+'</b><span>'+E([cf.TS[r[0]],r[3],r[4]].filter(Boolean).join(" · "))+'</span>'+(r[10]?'<span class="cm">'+E(r[10])+'</span>':'')+(r[1]?'<span class="ce">'+r[1]+'</span>':'')+px+'</div></div>'},
+  get:function(i){return rows[+i]},open:function(r){gotoTerm(r[1]||r[2])},openAll:function(raw){gotoTerm(raw)}});
  q.addEventListener("input",show);so.addEventListener("change",show);show()}
 setup("meuble");setup("toilette");
 })();
