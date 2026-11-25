@@ -31,6 +31,9 @@ button{font:inherit;color:inherit}
 .hd{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:12px}
 .brand{background:var(--yl);color:#0f1b3f;font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px}
 .hd small{color:var(--mut);font-size:13px}
+.bd{display:flex;justify-content:flex-end;margin-top:-6px;padding-bottom:10px}
+.bd small{display:block;max-width:25em;color:var(--mut);font-size:13px;line-height:1.4;text-align:right;text-wrap:balance}
+.bd small svg{display:inline-block;vertical-align:-3px;margin-right:6px;width:15px;height:15px;stroke:var(--ink)}.bd small b{color:var(--ink);font-weight:700}
 .stack{flex:1;min-height:0;display:flex;flex-direction:column;--cut:clamp(26px,6vh,60px)}
 .tile{position:relative;flex:1 1 0;min-height:0;margin-top:calc(6px - var(--cut));display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;color:var(--on);overflow:hidden;
  padding:calc(var(--cut)*.55) max(22px,env(safe-area-inset-right,0px)) calc(var(--cut)*.4) max(22px,env(safe-area-inset-left,0px));
@@ -610,6 +613,7 @@ html.noel body{background:radial-gradient(900px 420px at 50% -8%,#1f6048 0,trans
 <div id="v-home">
 <div class="home enter" id="home">
  <div class="hd g"><span class="brand">Osons Casto · GoodHome</span><small id="cnt0"></small></div>
+ <div class="bd g"><small id="bday"></small></div>
  <nav class="stack" aria-label="Catégories">
   <a class="tile t-paroi" href="#parois" data-go="parois" data-t="Paroi de douche" style="--i:0"><div class="tx"><h2>Paroi de douche</h2><p id="sub0"></p></div><div class="art" data-art="paroi"></div></a>
   <a class="tile t-receveur" href="#receveur" data-go="receveur" data-t="Receveur" style="--i:1"><div class="tx"><h2>Receveur</h2><p id="sub1">Receveurs de douche</p></div><div class="art" data-art="receveur"></div></a>
@@ -1155,6 +1159,12 @@ function wipe(x,y,cb){if(RMo){cb();return}var w=document.createElement("div");w.
  w.animate([{clipPath:"circle(0px at "+x+"px "+y+"px)",opacity:1},{clipPath:"circle("+R+"px at "+x+"px "+y+"px)",opacity:.9,offset:.6},{clipPath:"circle("+R+"px at "+x+"px "+y+"px)",opacity:0}],{duration:1100,easing:"ease-out"}).onfinish=function(){w.remove()};setTimeout(cb,260)}
 document.addEventListener("click",function(ev){if(!on())return;var t=ev.target.closest(".tile");if(t)burst(ev.clientX,ev.clientY,34,true);
  var a=ev.target.closest(".add");if(a&&!a.classList.contains("in")){var r=a.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,10,false)}},true);
+/* anniversaire d'Audrey, la petite cheffe : 3 juillet */
+var CAKE='<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zM4 17.5c2 0 2 1.5 4 1.5s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M12 13V9.5M12 8c-1 0-1.5-.8-1.5-1.5 0-1 1.5-2.5 1.5-2.5s1.5 1.5 1.5 2.5c0 .7-.5 1.5-1.5 1.5z"/></svg>';
+function bdUpd(){var e=$("bday");if(!e)return;var n=new Date(),t0=new Date(n.getFullYear(),n.getMonth(),n.getDate()),nx=new Date(n.getFullYear(),6,3);if(nx<t0)nx=new Date(n.getFullYear()+1,6,3);var d=Math.round((nx-t0)/864e5),t;
+ if(d===0)t="<b>Joyeux anniversaire Audrey,</b> la petite cheffe !";else if(d===1)t="Audrey, la petite cheffe : anniversaire <b>demain</b> !";else t="Audrey, la petite cheffe : anniversaire dans <b>"+d+" jours</b>";
+ e.innerHTML=CAKE+t;e.title="Anniversaire d’Audrey, le 3 juillet"}
+bdUpd();document.addEventListener("visibilitychange",function(){if(!document.hidden)bdUpd()});
 /* compte à rebours */
 function cdText(){var n=new Date(),y=n.getFullYear(),t0=new Date(n.getFullYear(),n.getMonth(),n.getDate()),xm=new Date(y,11,25),d=Math.round((xm-t0)/864e5);
  if(d>0)return d===1?"Noël demain !":"Noël dans "+d+" jours";if(d===0)return"Joyeux Noël !";if(d>-12)return"Bonnes fêtes !";return"Édition de Noël"}
